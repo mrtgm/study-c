@@ -3,6 +3,9 @@
     "*.jslib": "javascript",
     ".env*": "dotenv",
     "*.css": "vue-postcss",
-    "sstream": "c"
+    "sstream": "c",
+    "__bit_reference": "c",
+    "bitset": "c",
+    "unordered_map": "c"
   }
 }

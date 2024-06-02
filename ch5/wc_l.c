@@ -27,6 +27,16 @@ int main(int argc, char *argv[])
 
 #define BUFFER_SIZE 2048
 
+// str
+// *str
+// *str[]
+// str[]
+// &str
+// &str[]
+// &*str
+// &*str[]
+// &*str[][]
+
 int word_counter(const unsigned char *str, const char *target)
 {
     int counter = 0; // ここで初期化しないと、count に代入されなかったときに謎の値が入る
@@ -39,6 +49,14 @@ int word_counter(const unsigned char *str, const char *target)
         str++; // これは？？　ポインタのアドレスをインクリメントしている？？（*(str + 1) と同じ？）
     }
 
+    if (NULL) // NULL は 0 か
+    {
+        printf("NULL\n");
+    }
+
+    printf("%d\n", NULL); // 0
+    printf("%d\n", '\0'); // 0
+
     // この実装だと1文字と1文字の比較しかできんなあ
 
     // 文字列とか配列とか、その辺の話をはっきりさせる必要あるなあ
@@ -46,7 +64,10 @@ int word_counter(const unsigned char *str, const char *target)
     // *str == '\0' は、ポインタが指しているアドレスの値が '\0' かどうかを判定している
     // つまり、ポインタが指しているアドレスが '\0' になるまでループを回す
 
-    // 文字列と数値型のかんけいってどうなってたっけ・・・
+    // char と int のかんけいってどうなってたっけ・・・
+    (int)str;
+    // void*型
+    // https://qiita.com/keitean/items/a967712581f539934ab0 　「無」を示すvoid、そのポインタなので値を持たない（アドレスしか持たない）ポインタってこと
 
     return counter;
 }

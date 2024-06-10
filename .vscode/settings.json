@@ -6,6 +6,9 @@
     "sstream": "c",
     "__bit_reference": "c",
     "bitset": "c",
-    "unordered_map": "c"
+    "unordered_map": "c",
+    "fcntl.h": "c",
+    "unistd.h": "c",
+    "types.h": "c"
   }
 }

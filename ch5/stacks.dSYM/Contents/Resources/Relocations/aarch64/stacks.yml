@@ -1,0 +1,12 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     stacks
+relocations:
+  - { offsetInCU: 0x9E, offset: 0x9E, size: 0x8, addend: 0x0, symName: _push, symObjAddr: 0x0, symBinAddr: 0x100003D08, symSize: 0x6C }
+  - { offsetInCU: 0xAE, offset: 0xAE, size: 0x8, addend: 0x0, symName: _stack_data, symObjAddr: 0xAE8, symBinAddr: 0x100008000, symSize: 0x0 }
+  - { offsetInCU: 0xC3, offset: 0xC3, size: 0x8, addend: 0x0, symName: _stack_num, symObjAddr: 0xC78, symBinAddr: 0x100008190, symSize: 0x0 }
+  - { offsetInCU: 0xD2, offset: 0xD2, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x14C, symBinAddr: 0x100003E54, symSize: 0x94 }
+  - { offsetInCU: 0x156, offset: 0x156, size: 0x8, addend: 0x0, symName: _stackPrint, symObjAddr: 0xDC, symBinAddr: 0x100003DE4, symSize: 0x70 }
+  - { offsetInCU: 0x18F, offset: 0x18F, size: 0x8, addend: 0x0, symName: _pop, symObjAddr: 0x6C, symBinAddr: 0x100003D74, symSize: 0x70 }
+  - { offsetInCU: 0x1C4, offset: 0x1C4, size: 0x8, addend: 0x0, symName: _push, symObjAddr: 0x0, symBinAddr: 0x100003D08, symSize: 0x6C }
+...

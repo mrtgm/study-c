@@ -44,13 +44,22 @@ void insertToHashMap(Hashmap *hashmap, const char *key, const char *value)
     printf("%d:ins\n", index);
     Entry *entry = hashmap->entries[index];
 
-    // コリジョンを防ぐためにチェーン法ってのをつかうらしいけど、時間切れ・・・
-    // https://zenn.dev/fikastudio/articles/efcfe246642553
+    while (entry != NULL)
+    {
+        if (strcmp(entry->key, key) == 0)
+        {
+            free(entry->value);
+            entry->value = strdup(value);
+            return;
+        }
+        entry = entry->next;
+    }
 
-    entry = malloc(sizeof(Entry));
+    entry = malloc(sizeof(Entry)); // ここで entry は新しい要素を指すようになる
     entry->key = strdup(key);
     entry->value = strdup(value);
-    hashmap->entries[index] = entry;
+    entry->next = hashmap->entries[index]; // 先頭の要素を新しい要素の next にぶちこみ、
+    hashmap->entries[index] = entry;       // 先頭に新しい要素をぶちこむ
 }
 
 char *getValueFromHashMap(Hashmap *hashmap, const char *key)
@@ -59,11 +68,67 @@ char *getValueFromHashMap(Hashmap *hashmap, const char *key)
 
     printf("%d:get\n", index);
     Entry *entry = hashmap->entries[index];
-    if (entry == NULL)
+    while (entry != NULL)
     {
-        return '\0';
+        if (strcmp(entry->key, key) == 0)
+        {
+            return entry->value;
+        }
+        entry = entry->next;
     }
-    return entry->value;
+    return NULL;
+}
+
+void freeEntry(Entry *entry)
+{
+    while (entry != NULL)
+    {
+        Entry *next = entry->next;
+        free(entry->key);
+        free(entry->value);
+        free(entry);
+        entry = next;
+    }
+}
+
+void freeHashMap(Hashmap *hashmap)
+{
+    for (int i = 0; i < hashmap->size; i++)
+    {
+        freeEntry(hashmap->entries[i]);
+    }
+    free(hashmap->entries);
+    free(hashmap);
+}
+
+int removeFromHashMap(Hashmap *hashmap, const char *key)
+{
+    unsigned int index = hash(key, hashmap->size);
+    Entry *entry = hashmap->entries[index];
+
+    Entry *pred = NULL;
+    while (entry != NULL)
+    {
+        if (strcmp(entry->key, key) == 0)
+        {
+            break;
+        }
+        pred = entry;        // 削除する要素の一つ前の要素を保存
+        entry = entry->next; // 削除する要素を保存
+    }
+
+    if (entry == NULL) // 要素が見つからなかった場合
+        return -1;
+    if (pred == NULL)                          // 先頭の要素を削除する場合
+        hashmap->entries[index] = entry->next; // この場合、entry は先頭の要素を指す、先頭の次の要素を先頭にする
+    else
+        pred->next = entry->next; // 一つ前の要素の next を削除する要素の next と繋ぐ
+
+    free(entry->key);
+    free(entry->value);
+    free(entry);
+
+    return 0;
 }
 
 int main(void)

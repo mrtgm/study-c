@@ -46,8 +46,6 @@ int main()
     while (1)
     {
         nev = kevent(kq, changes, 2, events, MAX_EVENTS, NULL);
-        printf("events length: %d\n", nev);
-
         if (nev == -1)
         {
             if (errno == EINTR)
@@ -60,12 +58,10 @@ int main()
             int read_fd = events[i].ident;
             ssize_t bytes_read = read(read_fd, buffer, BUFFER_SIZE);
 
-            printf("???? %zd bytes from fd %d\n", bytes_read, read_fd);
+            printf("Read %zd bytes from fd %d\n", bytes_read, read_fd);
 
             if (bytes_read == -1)
             {
-                printf("Closed file descriptor %d\n", read_fd);
-
                 if (errno != EAGAIN)
                     handle_error("read");
             }
@@ -77,10 +73,9 @@ int main()
             }
             else
             {
-
                 // Successfully read data
                 buffer[bytes_read] = '\0'; // Null-terminate for printing
-                printf("Read %zd bytes from fd %d: %s\n", bytes_read, read_fd);
+                printf("Read %zd bytes from fd %d: %s\n", bytes_read, read_fd, buffer);
             }
         }
     }
